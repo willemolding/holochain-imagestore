@@ -34,8 +34,7 @@
                 },
                 {
                     "Name": "imageLinks",
-                    "DataFormat": "links",
-                    "Sharing": "public"
+                    "DataFormat": "links"
                 }
             ],
             "Functions": [

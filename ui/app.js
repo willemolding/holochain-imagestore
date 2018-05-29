@@ -9,7 +9,11 @@ $('#submit_button').click(function () {
 $('#get_from_hash_button').click(function () {
   var hash = $('#hash_input')[0].value
   console.log('loading image from hash: '+hash)
-  getFromHash(hash)
+  getFromHash(hash, function (image){
+    console.log(image.name)
+    $('#display_image')[0].src = image.data
+    $('#image_name')[0].innerHTML = image.name
+  })
 })
 
 $('#get_all_button').click(function () {
@@ -39,9 +43,10 @@ function postFile(file) {
   reader.readAsDataURL(file)
 }
 
-function getFromHash(hash) {
+function getFromHash(hash, then) {
   $.post( '/fn/imageStore/getFromHash', JSON.stringify({entryHash: hash}), function (response) {
       console.log('response: ' + response)
+      then(JSON.parse(response))
     })
 }
 

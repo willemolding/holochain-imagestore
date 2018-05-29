@@ -8,9 +8,7 @@ function storeImage(payload) {
   debug('storeImage called with: ' + payload)
   var entryHash = commit('imageEntry', payload)
   // link everything to the DNA hash for now
-  commit('imageLinks', {
-    Links: [ {Base: App.DNA.Hash, Link: entryHash, Tag: ''} ]
-  })
+  commit('imageLinks', { Links: [ { Base: App.DNA.Hash, Link: entryHash, Tag: "tag" } ] })
   return entryHash
 }
 
@@ -22,7 +20,9 @@ function getFromHash(payload) {
 
 function getAllImages() {
   debug('getAllImages was called')
-  return getLinks(App.DNA.Hash, '', {Load: true})
+  var links = getLinks(App.DNA.Hash, "tag")
+  debug(links)
+  return links
 }
 
 /*=====  End of Public Zome functions  ======*/
@@ -105,9 +105,7 @@ function validatePut (entryType, entry, header, pkg, sources) {
  * @see https://developer.holochain.org/Validation_Functions
  */
 function validateMod (entryType, entry, header, replaces, pkg, sources) {
-  return validateCommit(entryType, entry, header, pkg, sources)
-    // Only allow the creator of the entity to modify it.
-    && getCreator(header.EntryLink) === getCreator(replaces);
+  return false;
 }
 
 /**
@@ -123,9 +121,7 @@ function validateMod (entryType, entry, header, replaces, pkg, sources) {
  * @see https://developer.holochain.org/Validation_Functions
  */
 function validateDel (entryType, hash, pkg, sources) {
-  return isValidEntryType(entryType)
-    // Only allow the creator of the entity to delete it.
-    && getCreator(hash) === sources[0];
+  return false;
 }
 
 /**
@@ -181,4 +177,38 @@ function validateDelPkg (entryType) {
 
 /*=====  End of Required Callbacks  ======*/
 
+/*==========================================
+=            function overrides            =
+==========================================*/
+// used for creating sequence diagrams
+// delete these for production
+
+agentShortname = App.Agent.String.substr(0, App.Agent.String.indexOf('@'))
+
+var oldCommit = commit
+commit = function(entryType, entryData) {
+  if(entryType.indexOf("private") !== -1) {
+    debug('<mermaid>' + agentShortname + '-->>' + agentShortname + ': ' + entryType + '</mermaid>')
+  } else {
+    debug('<mermaid>' + agentShortname + '-->>DHT: ' + entryType + '</mermaid>')
+  }
+  return oldCommit(entryType, entryData)
+}
+
+var oldGet = get
+get = function(hash, options) {
+  result = oldGet(hash, options)
+  debug('<mermaid>' + 'DHT-->>' + agentShortname + ':' + 'requested data' + '</mermaid>')
+  return result
+}
+
+var oldGetLinks = getLinks
+getLinks = function(hash, options) {
+  result = oldGetLinks(hash, options)
+  debug('<mermaid>' + 'DHT-->>' + agentShortname + ':' + 'requested link' + '</mermaid>')
+  return result
+}
+
+
+/*=====  End of function overrides  ======*/
 

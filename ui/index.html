@@ -13,8 +13,9 @@
 	   <input type='file' id='file_picker' accept='image/*'>
 	</div>
 	<div>
-	   <button id='submit_button'>Submit</button>
+	   <button id='submit_button'>Upload</button>
 	</div>
+	<hr>
 	<div>
 	   <label for='hash_input'>Input an image hash to retrieve:</label>
 	   <input type='text' id='hash_input'>
@@ -22,6 +23,13 @@
 	</div>	
 	<div>
 	   <button id='get_all_button'>Load All</button>
+	</div>
+	<hr>
+	<div style="text-align:center">
+		<span id='image_name'></span>
+	</div>
+	<div style="text-align:center">
+		<img id='display_image' width=500>
 	</div>
 	<script src='./app.js'></script>
 </body>
