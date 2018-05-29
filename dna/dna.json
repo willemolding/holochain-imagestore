@@ -19,9 +19,9 @@
     },
     "Zomes": [
         {
-            "Name": "imagestore",
+            "Name": "imageStore",
             "Description": "zome for storing image files",
-            "CodeFile": "sampleZome.js",
+            "CodeFile": "imageStore.js",
             "RibosomeType": "js",
             "BridgeFuncs": null,
             "Config": {
