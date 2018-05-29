@@ -22,6 +22,7 @@ $('#get_from_hash_button').click(function () {
   })
 })
 
+
 function populateHashList() {
   getAllImages(function(response) {
     imageHashList = JSON.parse(response)
@@ -33,12 +34,14 @@ function populateHashList() {
   })
 }
 
+
 function postFile(file, then) {
   var reader = new FileReader()
 
-  // this is called after the file is serialised
+  // set up a function to be called after the file is loaded and converted
   reader.onload = function(evt) {
     var blobString = evt.target.result
+
     var data = JSON.stringify({
       name: file.name,
       type: file.type,
@@ -46,6 +49,7 @@ function postFile(file, then) {
       data: blobString
     })
 
+    // post the image data to Holochain
     $.post( '/fn/imageStore/storeImage', data, function (response) {
       console.log('response: ' + response)
       then(response)
@@ -56,12 +60,14 @@ function postFile(file, then) {
   reader.readAsDataURL(file)
 }
 
+
 function getFromHash(hash, then) {
   $.post( '/fn/imageStore/getFromHash', JSON.stringify({entryHash: hash}), function (response) {
       console.log('response: ' + response)
       then(JSON.parse(response))
     })
 }
+
 
 function getAllImages(then) {
   $.post( '/fn/imageStore/getAllImages', {}, function (response) {
