@@ -35,8 +35,8 @@ function postFile(file) {
     })
   }
 
-  // start serialising the file
-  reader.readAsText(file)
+  // start serialising the file to Base64 encoding
+  reader.readAsDataURL(file)
 }
 
 function getFromHash(hash) {
