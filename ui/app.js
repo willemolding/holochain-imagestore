@@ -1,15 +1,12 @@
 
+$('document').ready(function () {
+  populateHashList()
+})
+
 $('#submit_button').click(function () {
   var filePicker = $('#file_picker')[0]
     postFile(filePicker.files[0], function() {
-      getAllImages(function(response) {
-      imageHashList = JSON.parse(response)
-      console.log(imageHashList)
-      $('#hash_input').empty()
-      imageHashList.forEach(function(hash){
-        $('#hash_input').append('<option>' + hash + '</option>')
-      })
-    })
+    populateHashList()
   })
   console.log('Upload started...')
 })
@@ -25,6 +22,16 @@ $('#get_from_hash_button').click(function () {
   })
 })
 
+function populateHashList() {
+  getAllImages(function(response) {
+    imageHashList = JSON.parse(response)
+    console.log(imageHashList)
+    $('#hash_input').empty()
+    imageHashList.forEach(function(hash){
+      $('#hash_input').append('<option>' + hash + '</option>')
+    })
+  })
+}
 
 function postFile(file, then) {
   var reader = new FileReader()
