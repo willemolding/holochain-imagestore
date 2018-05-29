@@ -8,3 +8,4 @@ limit uploads only to images, and only one at at time
 
 Currently the only way to access images is to get All Of Them! Obviously this is crazy but ok for a proof of concept
 
+In the new Holochain verson (25) hdcev init does not create a validateLink function by default. It took me ages to figure out why links were not working.
