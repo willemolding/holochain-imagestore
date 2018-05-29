@@ -24,7 +24,9 @@
             "CodeFile": "imageStore.js",
             "RibosomeType": "js",
             "BridgeFuncs": null,
-            "Config": null,            
+            "Config": {
+                "ErrorHandling": "throwErrors"
+            },            
             "Entries": [
                 {
                     "Name": "imageEntry",

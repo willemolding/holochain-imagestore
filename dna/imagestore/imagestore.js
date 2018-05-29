@@ -8,9 +8,10 @@ function storeImage(payload) {
   debug('storeImage called with: ' + payload)
   var entryHash = commit('imageEntry', payload)
   // link everything to the DNA hash for now
-  commit('imageLinks', { Links: [ { Base: App.DNA.Hash, Link: entryHash, Tag: "tag" } ] })
+  commit('imageLinks', { Links: [ { Base: App.DNA.Hash, Link: entryHash, Tag: 'image' } ] })
   return entryHash
 }
+
 
 function getFromHash(payload) {
   debug('getFromHash called with: ' + payload)
@@ -18,9 +19,10 @@ function getFromHash(payload) {
   return get(entryHash)
 }
 
+
 function getAllImages() {
   debug('getAllImages was called')
-  var links = getLinks(App.DNA.Hash, "tag")
+  var links = getLinks(App.DNA.Hash, 'image')
   debug(links)
   return links
 }
@@ -86,6 +88,11 @@ function validateCommit (entryType, entry, header, pkg, sources) {
  */
 function validatePut (entryType, entry, header, pkg, sources) {
   return validateCommit(entryType, entry, header, pkg, sources);
+}
+
+
+function validateLink(links) {
+  return true;
 }
 
 /**
