@@ -1,8 +1,20 @@
 
 $('#submit_button').click(function () {
-  var filePicker = $('#file_picker')[0];
+  var filePicker = $('#file_picker')[0]
   postFile(filePicker.files[0])
   console.log('Upload started...')
+})
+
+
+$('#get_from_hash_button').click(function () {
+  var hash = $('#hash_input')[0].value
+  console.log('loading image from hash: '+hash)
+  getFromHash(hash)
+})
+
+$('#get_all_button').click(function () {
+  console.log('loading all images in DHT')
+  getAllImages()
 })
 
 function postFile(file) {
@@ -19,11 +31,22 @@ function postFile(file) {
     })
 
     $.post( '/fn/imageStore/storeImage', data, function (response) {
-      console.log('Upload Success!')
       console.log('response: ' + response)
     })
   }
 
   // start serialising the file
   reader.readAsText(file)
+}
+
+function getFromHash(hash) {
+  $.post( '/fn/imageStore/getFromHash', JSON.stringify({entryHash: hash}), function (response) {
+      console.log('response: ' + response)
+    })
+}
+
+function getAllImages() {
+  $.post( '/fn/imageStore/getAllImages', {}, function (response) {
+      console.log('response: ' + response)
+    })
 }

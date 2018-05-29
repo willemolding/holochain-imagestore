@@ -5,22 +5,24 @@
 =============================================*/
 
 function storeImage(payload) {
-  try {
-    var entryHash = commit('imageEntry', payload)
-    // link everything to the DNA hash for now
-    commit('imageLinks', {
-      Links: [ {Base: App.DNA.Hash, Link: entryHash, Tag: 'image'} ]
-    })
-    return entryHash
-  } catch (err) {
-    return err
-  }
+  debug('storeImage called with: ' + payload)
+  var entryHash = commit('imageEntry', payload)
+  // link everything to the DNA hash for now
+  commit('imageLinks', {
+    Links: [ {Base: App.DNA.Hash, Link: entryHash, Tag: ''} ]
+  })
+  return entryHash
+}
+
+function getFromHash(payload) {
+  debug('getFromHash called with: ' + payload)
+  var entryHash = payload.entryHash
+  return get(entryHash)
 }
 
 function getAllImages() {
-  return getLinks(App.DNA.Hash, 'image').map(function (elem) {
-    return elem.Entry
-  })
+  debug('getAllImages was called')
+  return getLinks(App.DNA.Hash, '', {Load: true})
 }
 
 /*=====  End of Public Zome functions  ======*/

@@ -24,9 +24,7 @@
             "CodeFile": "imageStore.js",
             "RibosomeType": "js",
             "BridgeFuncs": null,
-            "Config": {
-                "ErrorHandling": "throwErrors"
-            },            
+            "Config": null,            
             "Entries": [
                 {
                     "Name": "imageEntry",
@@ -45,6 +43,11 @@
                     "Name": "storeImage",
                     "CallingType": "json",
                     "Exposure": "public"
+                },
+                {
+                    "Name": "getFromHash",
+                    "CallingType": "json",
+                    "Exposure": "public"                    
                 },
                 {
                     "Name": "getAllImages",
