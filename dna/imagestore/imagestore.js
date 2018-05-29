@@ -1,31 +1,27 @@
-/*******************************************************************************
- * Utility functions
- ******************************************************************************/
 
-/**
- * Is this a valid entry type?
- *
- * @param {any} entryType The data to validate as an expected entryType.
- * @return {boolean} true if the passed argument is a valid entryType.
- */
-function isValidEntryType (entryType) {
-  // Add additonal entry types here as they are added to dna.json.
-  return ["sampleEntry"].includes(entryType);
+
+/*=============================================
+=            Public Zome functions            =
+=============================================*/
+
+function storeImage(payload) {
+  try {
+    commit(payload)
+  } catch {
+    
+  }
 }
 
-/**
- * Returns the creator of an entity, given an entity hash.
- *
- * @param  {string} hash The entity hash.
- * @return {string} The agent hash of the entity creator.
- */
-function getCreator (hash) {
-  return get(hash, { GetMask: HC.GetMask.Sources })[0];
+function getImage(payload) {
+
 }
 
-/*******************************************************************************
- * Required callbacks
- ******************************************************************************/
+/*=====  End of Public Zome functions  ======*/
+
+
+/*==========================================
+=            Required Callbacks            =
+==========================================*/
 
 /**
  * System genesis callback: Can the app start?
@@ -56,7 +52,7 @@ function genesis () {
  * @see https://developer.holochain.org/Validation_Functions
  */
 function validateCommit (entryType, entry, header, pkg, sources) {
-  return isValidEntryType(entryType);
+  return true;
 }
 
 /**
@@ -173,3 +169,7 @@ function validateModPkg (entryType) {
 function validateDelPkg (entryType) {
   return null;
 }
+
+/*=====  End of Required Callbacks  ======*/
+
+

@@ -3,7 +3,7 @@
     "UUID": "545a11eb-62df-11e8-87a8-685b35836414",
     "Name": "holochain-imagestore",
     "Properties": {
-        "description": "provides an application template",
+        "description": "A proof of concept for storing images in local chains and DHT",
         "language": "en"
     },
     "PropertiesSchemaFile": "properties_schema.json",
@@ -19,34 +19,35 @@
     },
     "Zomes": [
         {
-            "Name": "sampleZome",
-            "Description": "provide a sample zome",
+            "Name": "imagestore",
+            "Description": "zome for storing image files",
             "CodeFile": "sampleZome.js",
             "RibosomeType": "js",
             "BridgeFuncs": null,
-            "Config": null,
+            "Config": {
+                "ErrorHandling": "throwErrors"
+            },            
             "Entries": [
                 {
-                    "Name": "sampleEntry",
+                    "Name": "imageEntry",
                     "DataFormat": "json",
-                    "Schema": "",
-                    "SchemaFile": "sampleEntry.json",
+                    "SchemaFile": "imageEntry.json",
+                    "Sharing": "public"
+                },
+                {
+                    "Name": "imageLinks",
+                    "DataFormat": "links",
                     "Sharing": "public"
                 }
             ],
             "Functions": [
                 {
-                    "Name": "sampleEntryCreate",
+                    "Name": "storeImage",
                     "CallingType": "json",
                     "Exposure": "public"
                 },
                 {
-                    "Name": "sampleEntryRead",
-                    "CallingType": "json",
-                    "Exposure": "public"
-                },
-                {
-                    "Name": "doSampleAction",
+                    "Name": "getAllImages",
                     "CallingType": "json",
                     "Exposure": "public"
                 }

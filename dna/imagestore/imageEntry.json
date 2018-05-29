@@ -1,0 +1,19 @@
+{
+	"title": "imageEntry Schema",
+	"type": "object",
+	"properties": {
+		"name": {
+			"type": "string"
+		},
+		"size": {
+			"type": "integer"
+		},
+		"type": {
+			"type": "string"
+		},
+		"data": {
+			"type": "string"
+		}
+	},
+    "required": ["name", "size", "type", "data"]
+}

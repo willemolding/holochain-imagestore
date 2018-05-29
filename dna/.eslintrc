@@ -1,0 +1,7 @@
+{
+  "extends": ["airbnb-es5"],
+   "rules": {
+    "semi": [2, "never"],
+    "object-curly-spacing": [2, "never"]
+  }
+}
